@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-spring-boot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-spring-boot
+  template:
+    metadata:
+      labels:
+        app: demo-spring-boot
+    spec:
+      containers:
+        - name: demo-spring-boot
+          image: zmallouky/demo-spring-boot:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATA_MONGODB_URI
+              value: mongodb://mongo:27017/product # Remplacez mydatabase par le nom de votre base de données
+      imagePullSecrets:
+        - name: regcred
